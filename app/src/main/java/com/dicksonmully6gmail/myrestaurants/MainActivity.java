@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+//import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -17,14 +17,15 @@ import android.graphics.Typeface;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity {
-    public static final String TAG = MainActivity.class.getSimpleName();
+public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+//    public static final String TAG = MainActivity.class.getSimpleName();
     private TextView mTextMessage;
+    // butterknife to make code DRY
     @Bind(R.id.findRestaurantsButton) Button mFindRestaurantsButton;
     @Bind(R.id.locationEditText) EditText mLocationEditText;
     @Bind(R.id.appNameTextView) TextView mAppNameTextView;
 
-    // butterknife to make code DRY
+
 
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -54,18 +55,21 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        mFindRestaurantsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String location = mLocationEditText.getText().toString();
-                Intent intent = new Intent(MainActivity.this, RestaurantsActivity.class);
-                intent.putExtra("location", location);
-                startActivity(intent);
-            }
-        });
-        mAppNameTextView = (TextView) findViewById(R.id.appNameTextView);
         Typeface alexBrushFont = Typeface.createFromAsset(getAssets(), "fonts/AlexBrush-Regular.ttf");
         mAppNameTextView.setTypeface(alexBrushFont);
+
+        mAppNameTextView = (TextView) findViewById(R.id.appNameTextView);
+
+        mFindRestaurantsButton.setOnClickListener(this);
+    }
+    @Override
+    public void onClick(View v) {
+           if(v == mFindRestaurantsButton) {
+               String location = mLocationEditText.getText().toString();
+               Intent intent = new Intent(MainActivity.this, RestaurantsActivity.class);
+               intent.putExtra("location", location);
+               startActivity(intent);
+           }
     }
 
 }
