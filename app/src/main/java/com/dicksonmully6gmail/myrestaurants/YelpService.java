@@ -21,6 +21,10 @@ public class YelpService {
         OkHttpClient client = new OkHttpClient.Builder()
                 .addInterceptor(new SigningInterceptor(consumer))
                 .build();
+//        HttpUrl class to construct the URL we'll send our request to
+        HttpUrl.Builder urlBuilder = HttpUrl.parse(Constants.YELP_BASE_URL).newBuilder();
+        urlBuilder.addQueryParameter(Constants.YELP_LOCATION_QUERY_PARAMETER, location);
+        String url = urlBuilder.build().toString();
 
 //        request using the created url
     }
