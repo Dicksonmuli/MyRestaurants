@@ -59,4 +59,6 @@ dependencies {
     compile 'com.android.support:multidex:1.0.0'
 //    Okhttp to hundle http requests for APIs
     compile 'com.squareup.okhttp3:okhttp:3.2.0'
+//    an extension for signing the OAuth requests that OkHttp will send and receive
+    compile 'se.akerfeldt:okhttp-signpost:1.1.0'
 }
