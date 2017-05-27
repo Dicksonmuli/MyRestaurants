@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -27,6 +28,8 @@ public class RestaurantsActivity extends AppCompatActivity {
     @Bind(R.id.locationTextView) TextView mLocationTextView;
     @Bind(R.id.listView) ListView mListView;
     public static final String TAG = RestaurantsActivity.class.getSimpleName();
+    public ArrayList<Restaurant> mRestaurants = new ArrayList<>();
+
     private String[] restaurants = new String[] {"Sweet Hereafter", "Cricket", "Hawthorne Fish House",
             "Viking Soul Food", "Red Square", "Horse Brass", "Dick's Kitchen", "Taco Bell",
             "Me Kha Noodle Bar", "La Bonita Taqueria", "Smokehouse Tavern", "Pembiche",
@@ -80,6 +83,8 @@ public class RestaurantsActivity extends AppCompatActivity {
                 try {
                     String jsonData = response.body().string();
                     Log.v(TAG, jsonData);
+//                    mRestaurants array will  replace our hard-coded restaurants array
+                    mRestaurants = yelpService.processResults(response);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
