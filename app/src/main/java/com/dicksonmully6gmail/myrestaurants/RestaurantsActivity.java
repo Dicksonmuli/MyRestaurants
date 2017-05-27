@@ -63,6 +63,8 @@ public class RestaurantsActivity extends AppCompatActivity {
         mLocationTextView.setText("Here are the restaurants near: " + location);
         Log.d(TAG, "In the onCreate method!");
 
+        getRestaurants(location);
+
     }
     //callback method for req and res
     private void getRestaurants(String location) {
