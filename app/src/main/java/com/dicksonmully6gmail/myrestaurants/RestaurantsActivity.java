@@ -72,10 +72,15 @@ public class RestaurantsActivity extends AppCompatActivity {
             public void onFailure(Call call, IOException e) {
                 e.printStackTrace();
             }
-
+            //overriding onResponse and save data in logcat(for now)
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-
+                try {
+                    String jsonData = response.body().string();
+                    Log.v(TAG, jsonData);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
