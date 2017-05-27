@@ -2,6 +2,7 @@ package com.dicksonmully6gmail.myrestaurants;
 
 
 
+import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
@@ -27,9 +28,12 @@ public class YelpService {
         urlBuilder.addQueryParameter(Constants.YELP_LOCATION_QUERY_PARAMETER, location);
         String url = urlBuilder.build().toString();
 
-//        request using the created url
+//       create request using the created url
         Request request= new Request.Builder()
                 .url(url)
                 .build();
+//        execute this request
+        Call call = client.newCall(request);
+        call.enqueue(callback);
     }
 }
