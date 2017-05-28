@@ -3,11 +3,14 @@ package com.dicksonmully6gmail.myrestaurants;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.dicksonmully6gmail.myrestaurants.adapters.RestaurantListAdapter;
 import com.dicksonmully6gmail.myrestaurants.models.Restaurant;
 import com.dicksonmully6gmail.myrestaurants.services.YelpService;
 
@@ -28,6 +31,9 @@ public class RestaurantsActivity extends AppCompatActivity {
     @Bind(R.id.locationTextView) TextView mLocationTextView;
     @Bind(R.id.listView) ListView mListView;
     public static final String TAG = RestaurantsActivity.class.getSimpleName();
+    @Bind(R.id.recyclerView) RecyclerView mRecyclerView;
+    private RestaurantListAdapter mAdapter;
+
     public ArrayList<Restaurant> mRestaurants = new ArrayList<>();
 
 
@@ -60,10 +66,19 @@ public class RestaurantsActivity extends AppCompatActivity {
 //                calling runOnUiThread() method and override its run()
                 mRestaurants = yelpService.processResults(response);
 
+
                 RestaurantsActivity.this.runOnUiThread(new Runnable() {
 
                     @Override
                     public void run() {
+                        mAdapter = new RestaurantListAdapter(getApplicationContext(), mRestaurants);
+                        mRecyclerView.setAdapter(mAdapter);
+                        RecyclerView.LayoutManager layoutManager =
+                                new LinearLayoutManager(RestaurantsActivity.this);
+                        mRecyclerView.setLayoutManager(layoutManager);
+                        mRecyclerView.setHasFixedSize(true);
+                    }
+
                         String[] restaurantNames = new String[mRestaurants.size()];
                         for (int i = 0; i < restaurantNames.length; i++) {
                             restaurantNames[i] = mRestaurants.get(i).getName();
