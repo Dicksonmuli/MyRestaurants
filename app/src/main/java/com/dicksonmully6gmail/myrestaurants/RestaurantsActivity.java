@@ -80,6 +80,7 @@ public class RestaurantsActivity extends AppCompatActivity {
             //overriding onResponse and save data in logcat(for now)
             @Override
             public void onResponse(Call call, Response response) throws IOException {
+//                calling runOnUiThread() method and override its run()
                 try {
                     String jsonData = response.body().string();
                     Log.v(TAG, jsonData);
