@@ -1,4 +1,4 @@
-package com.dicksonmully6gmail.myrestaurants;
+package com.dicksonmully6gmail.myrestaurants.models;
 
 import java.util.ArrayList;
 

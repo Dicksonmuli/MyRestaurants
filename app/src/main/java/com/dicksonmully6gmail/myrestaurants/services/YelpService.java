@@ -1,6 +1,9 @@
-package com.dicksonmully6gmail.myrestaurants;
+package com.dicksonmully6gmail.myrestaurants.services;
 
 
+
+import com.dicksonmully6gmail.myrestaurants.Constants;
+import com.dicksonmully6gmail.myrestaurants.models.Restaurant;
 
 import org.json.JSONArray;
 import org.json.JSONException;
