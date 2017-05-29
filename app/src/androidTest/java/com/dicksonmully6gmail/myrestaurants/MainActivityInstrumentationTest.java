@@ -8,6 +8,8 @@ import android.content.Context;
 import android.support.test.rule.ActivityTestRule;
 import android.view.View;
 
+import com.dicksonmully6gmail.myrestaurants.ui.MainActivity;
+
 import org.junit.Rule;
 import org.junit.Test;
 

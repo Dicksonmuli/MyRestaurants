@@ -19,15 +19,15 @@ public class Restaurant {
 
     public Restaurant(String name, String phone, String website,
                       double rating, String imageUrl, ArrayList<String> address,
-                      double latitude, double longitude, ArrayList<String> categories) {
+                       ArrayList<String> categories) {
         this.mName = name;
         this.mPhone = phone;
         this.mWebsite = website;
         this.mRating = rating;
         this.mImageUrl = imageUrl;
         this.mAddress = address;
-        this.mLatitude = latitude;
-        this.mLongitude = longitude;
+//        this.mLatitude = latitude;
+//        this.mLongitude = longitude;
         this.mCategories = categories;
     }
 
@@ -54,18 +54,16 @@ public class Restaurant {
     public ArrayList<String> getAddress() {
         return mAddress;
     }
-
-    public double getLatitude() {
-        return mLatitude;
-    }
-
-    public double getLongitude() {
-        return mLongitude;
-    }
+//
+//    public double getLatitude() {
+//        return mLatitude;
+//    }
+//
+//    public double getLongitude() {
+//        return mLongitude;
+//    }
 
     public ArrayList<String> getCategories() {
         return mCategories;
     }
-
-
 }

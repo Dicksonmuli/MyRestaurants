@@ -4,14 +4,15 @@ import android.content.Intent;
 import android.os.Build;
 
 import org.junit.Before;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+
 import android.widget.TextView;
+
+import com.dicksonmully6gmail.myrestaurants.ui.MainActivity;
+import com.dicksonmully6gmail.myrestaurants.ui.RestaurantsActivity;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
-import org.robolectric.Shadows;
 import org.robolectric.annotation.Config;
 import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.shadows.ShadowActivity;
@@ -23,7 +24,7 @@ import static junit.framework.Assert.assertTrue;
 
 
 public class MainActivityTest {
-    private MainActivity activity;
+    public MainActivity activity;
 
     @Before
     public void setup() {

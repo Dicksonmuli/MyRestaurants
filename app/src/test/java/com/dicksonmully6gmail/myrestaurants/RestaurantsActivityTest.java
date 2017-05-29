@@ -6,12 +6,13 @@ package com.dicksonmully6gmail.myrestaurants;
 import android.os.Build;
 import android.widget.ListView;
 
+import com.dicksonmully6gmail.myrestaurants.ui.RestaurantsActivity;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricGradleTestRunner;
-import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
 import static junit.framework.Assert.assertEquals;
@@ -28,7 +29,7 @@ public class RestaurantsActivityTest {
     @Before
     public void setup() {
         activity = Robolectric.setupActivity(RestaurantsActivity.class);
-        mRestaurantListView = (ListView) activity.findViewById(R.id.listView);
+        mRestaurantListView = (ListView) activity.findViewById(R.id.recyclerView);
     }
 
     @Test

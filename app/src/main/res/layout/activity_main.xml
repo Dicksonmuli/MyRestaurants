@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@android:color/background_dark"
     android:orientation="vertical"
-    tools:context="com.dicksonmully6gmail.myrestaurants.MainActivity">
+    tools:context="com.dicksonmully6gmail.myrestaurants.ui.MainActivity">
 
     <FrameLayout
         android:id="@+id/content"
