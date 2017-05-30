@@ -6,7 +6,7 @@ package com.dicksonmully6gmail.myrestaurants;
 import android.os.Build;
 import android.widget.ListView;
 
-import com.dicksonmully6gmail.myrestaurants.ui.RestaurantsActivity;
+import com.dicksonmully6gmail.myrestaurants.ui.RestaurantListActivity;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -22,13 +22,13 @@ import static junit.framework.Assert.assertNotNull;
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(constants = BuildConfig.class, sdk = Build.VERSION_CODES.LOLLIPOP, manifest = "src/main/AndroidManifest.xml", packageName = "com.dicksonmully6gmail.myrestaurants")
 
-public class RestaurantsActivityTest {
-    private RestaurantsActivity activity;
+public class RestaurantListActivityTest {
+    private RestaurantListActivity activity;
     private ListView mRestaurantListView;
 
     @Before
     public void setup() {
-        activity = Robolectric.setupActivity(RestaurantsActivity.class);
+        activity = Robolectric.setupActivity(RestaurantListActivity.class);
         mRestaurantListView = (ListView) activity.findViewById(R.id.recyclerView);
     }
 

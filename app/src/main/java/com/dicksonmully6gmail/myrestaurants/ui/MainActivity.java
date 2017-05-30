@@ -2,7 +2,6 @@ package com.dicksonmully6gmail.myrestaurants.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
@@ -69,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
            if(v == mFindRestaurantsButton) {
                try{
                    String location = mLocationEditText.getText().toString();
-                   Intent intent = new Intent(MainActivity.this, RestaurantsActivity.class);
+                   Intent intent = new Intent(MainActivity.this, RestaurantListActivity.class);
                    intent.putExtra("location", location);
                    startActivity(intent);
                }catch (Exception e) {
