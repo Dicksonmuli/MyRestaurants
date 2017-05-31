@@ -15,6 +15,7 @@ import com.dicksonmully6gmail.myrestaurants.models.Restaurant;
 import org.parceler.Parcels;
 
 import butterknife.Bind;
+import butterknife.ButterKnife;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -52,7 +53,11 @@ public class RestaurantDetailFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+        // Inflating the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_restaurant_detail, false);
+        ButterKnife.bind(this);
+
+
         return inflater.inflate(R.layout.fragment_restaurant_detail, container, false);
     }
 
