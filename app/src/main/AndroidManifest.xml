@@ -3,6 +3,7 @@
     package="com.dicksonmully6gmail.myrestaurants">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
@@ -27,6 +28,13 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.dicksonmully6gmail.myrestaurants.ui.MainActivity">
+            </meta-data>
+        </activity>
+        <activity
+            android:name=".ui.RestaurantDetailActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.dicksonmully6gmail.myrestaurants.ui.RestaurantDetailActivity">
             </meta-data>
         </activity>
     </application>
