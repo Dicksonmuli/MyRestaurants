@@ -34,6 +34,7 @@ public class RestaurantDetailActivity extends AppCompatActivity{
         mRestaurants = Parcels.unwrap(getIntent().getParcelableExtra("restaurants"));
         int startingPosition = getIntent().getIntExtra("position", 0);
 
+//        instructing ViewPager to use adapterViewPager adapter. And set the current item to the position of the item that was just clicked on
         adapterViewPager = new RestaurantPagerAdapter(getSupportFragmentManager(), mRestaurants);
         mViewPager.setAdapter(adapterViewPager);
         mViewPager.setCurrentItem(startingPosition);
