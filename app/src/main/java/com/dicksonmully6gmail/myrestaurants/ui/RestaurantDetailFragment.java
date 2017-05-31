@@ -10,6 +10,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dicksonmully6gmail.myrestaurants.R;
+import com.dicksonmully6gmail.myrestaurants.models.Restaurant;
+
+import org.parceler.Parcels;
 
 import butterknife.Bind;
 
@@ -17,9 +20,24 @@ import butterknife.Bind;
  * A simple {@link Fragment} subclass.
  */
 public class RestaurantDetailFragment extends Fragment {
+    @Bind(R.id.restaurantImageView) ImageView mImageLable;
+    @Bind(R.id.restaurantNameTextView) TextView mNameLabel;
+    @Bind(R.id.cuisineTextView) TextView mCategoriesLabel;
+    @Bind(R.id.ratingTextView) TextView mRatingLabel;
+    @Bind(R.id.websiteTextView) TextView mWebsiteLabel;
+    @Bind(R.id.phoneTextView) TextView mPhoneLabel;
+    @Bind(R.id.addressTextView) TextView mAddressLabel;
+    @Bind(R.id.saveRestaurantButton) TextView mSaveRestaurantButton;
 
+    private Restaurant mRestaurant;
 
-
+    public static RestaurantDetailFragment newInstance(Restaurant restaurant) {
+        RestaurantDetailFragment restaurantDetailFragment = new RestaurantDetailFragment();
+        Bundle args = new Bundle();
+        args.putParcelable("restaurant", Parcels.wrap(restaurant));
+        restaurantDetailFragment.setArguments(args);
+        return restaurantDetailFragment;
+    }
 
 
     public RestaurantDetailFragment() {
