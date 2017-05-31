@@ -31,6 +31,7 @@ public class RestaurantDetailFragment extends Fragment {
     @Bind(R.id.addressTextView) TextView mAddressLabel;
     @Bind(R.id.saveRestaurantButton) TextView mSaveRestaurantButton;
 
+//  restaurant object
     private Restaurant mRestaurant;
 
     public static RestaurantDetailFragment newInstance(Restaurant restaurant) {
@@ -50,7 +51,7 @@ public class RestaurantDetailFragment extends Fragment {
         mRestaurant = Parcels.unwrap(getArguments().getParcelable("restaurant"));
     }
 
-//    onCreate view with varibles from Restaurant model
+//    restaurant object used to set our ImageView and TextViews in onCreateView on onCreate view
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
