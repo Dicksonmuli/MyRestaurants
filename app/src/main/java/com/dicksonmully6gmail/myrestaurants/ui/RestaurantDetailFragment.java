@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.dicksonmully6gmail.myrestaurants.R;
 import com.dicksonmully6gmail.myrestaurants.models.Restaurant;
+import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;
 
@@ -49,16 +50,22 @@ public class RestaurantDetailFragment extends Fragment {
         mRestaurant = Parcels.unwrap(getArguments().getParcelable("restaurant"));
     }
 
-
+//    onCreate view with varibles from Restaurant model
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflating the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_restaurant_detail, false);
-        ButterKnife.bind(this);
+        View view = inflater.inflate(R.layout.fragment_restaurant_detail, container, false);
+        ButterKnife.bind(this, view);
 
+        Picasso.with(view.getContext()).load(mRestaurant.getImageUrl()).into(mImageLable);
+        mNameLabel.setText(mRestaurant.getName());
+        mCategoriesLabel.setText(android.text.TextUtils.join(", ", mRestaurant.getCategories()));
+        mRatingLabel.setText(Double.toString(mRestaurant.getRating()) + "/5");
+        mPhoneLabel.setText(mRestaurant.getPhone());
+        mAddressLabel.setText(android.text.TextUtils.join(", ", mRestaurant.getAddress()));
 
-        return inflater.inflate(R.layout.fragment_restaurant_detail, container, false);
+        return view;
     }
 
 }
