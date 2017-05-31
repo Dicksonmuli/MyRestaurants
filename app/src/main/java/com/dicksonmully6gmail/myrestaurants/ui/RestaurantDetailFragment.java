@@ -32,6 +32,7 @@ public class RestaurantDetailFragment extends Fragment {
     private Restaurant mRestaurant;
 
     public static RestaurantDetailFragment newInstance(Restaurant restaurant) {
+        //wrapping restaurant with parcels for serialization
         RestaurantDetailFragment restaurantDetailFragment = new RestaurantDetailFragment();
         Bundle args = new Bundle();
         args.putParcelable("restaurant", Parcels.wrap(restaurant));
@@ -40,8 +41,11 @@ public class RestaurantDetailFragment extends Fragment {
     }
 
 
-    public RestaurantDetailFragment() {
-        // Required empty public constructor
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+//        unwrapping restaurant on onCreate
+        super.onCreate(savedInstanceState);
+        mRestaurant = Parcels.unwrap(getArguments().getParcelable("restaurant"));
     }
 
 
