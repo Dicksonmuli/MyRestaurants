@@ -1,22 +1,22 @@
 package com.dicksonmully6gmail.myrestaurants.ui;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
-//import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.graphics.Typeface;
 
 import com.dicksonmully6gmail.myrestaurants.R;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+
+//import android.util.Log;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 //    public static final String TAG = MainActivity.class.getSimpleName();
@@ -29,26 +29,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
 
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.navigation_home:
-                    mTextMessage.setText(R.string.title_home);
-                    return true;
-                case R.id.navigation_dashboard:
-                    mTextMessage.setText(R.string.title_dashboard);
-                    return true;
-                case R.id.navigation_notifications:
-                    mTextMessage.setText(R.string.title_notifications);
-                    return true;
-            }
-            return false;
-        }
-
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

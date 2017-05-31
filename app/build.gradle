@@ -40,29 +40,26 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    androidTestCompile('com.android.support.test:runner:0.3') {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    }
-    compile 'com.android.support:appcompat-v7:25.3.1'
-    compile 'com.android.support:design:25.3.1'
-    compile 'com.android.support:support-vector-drawable:25.3.1'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    testCompile 'junit:junit:4.12'
-    testCompile 'org.robolectric:robolectric:3.0'
-    testCompile 'org.robolectric:shadows-support-v4:3.0'
-    testCompile 'org.robolectric:robolectric-annotations:3.0'
-//    compile 'junit:junit:4.12'
-//    compile 'org.robolectric:robolectric:3.0'
-    compile 'com.jakewharton:butterknife:7.0.1'
 
+    //    Okhttp to hundle http requests for APIs
+    //    an extension for signing the OAuth requests that OkHttp will send and receive
+    //    recycler view dependancy
+    //    picasso image organizer
+    compile 'com.android.support:appcompat-v7:25.3.1'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'com.jakewharton:butterknife:7.0.1'
     compile 'com.android.support:multidex:1.0.0'
-//    Okhttp to hundle http requests for APIs
     compile 'com.squareup.okhttp3:okhttp:3.2.0'
-//    an extension for signing the OAuth requests that OkHttp will send and receive
     compile 'se.akerfeldt:okhttp-signpost:1.1.0'
-//    recycler view dependancy
     compile 'com.android.support:recyclerview-v7:25.3.1'
-//    picasso image organizer
     compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.android.support:support-v4:25.3.1'
+    testCompile 'junit:junit:4.12'
+
+    compile 'org.parceler:parceler-api:1.1.6'
+    annotationProcessor 'org.parceler:parceler:1.1.6'
 }
+
+
+
 

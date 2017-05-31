@@ -1,24 +1,31 @@
 package com.dicksonmully6gmail.myrestaurants.models;
 
+import org.parceler.Parcel;
+
 import java.util.ArrayList;
 
 /**
  * Created by dickson on 5/27/17.
  */
 
+@Parcel
 public class Restaurant {
-    private String mName;
-    private String mPhone;
-    private String mWebsite;
-    private double mRating;
-    private String mImageUrl;
-    private ArrayList<String> mAddress = new ArrayList<>();
-    private double mLatitude;
-    private double mLongitude;
-    private ArrayList<String> mCategories = new ArrayList<>();
+    // fields must be public
+    String mName;
+    String mPhone;
+    String mWebsite;
+    double mRating;
+    String mImageUrl;
+    ArrayList<String> mAddress = new ArrayList<>();
+    double mLatitude;
+    double mLongitude;
+    ArrayList<String> mCategories = new ArrayList<>();
+
+//    empty constructor needed by the Parceler library
+    public Restaurant() {}
 
     public Restaurant(String name, String phone, String website,
-                      double rating, String imageUrl, ArrayList<String> address,
+                      double rating, String imageUrl, ArrayList<String> address, double latitude, double longitude,
                        ArrayList<String> categories) {
         this.mName = name;
         this.mPhone = phone;
@@ -26,8 +33,8 @@ public class Restaurant {
         this.mRating = rating;
         this.mImageUrl = imageUrl;
         this.mAddress = address;
-//        this.mLatitude = latitude;
-//        this.mLongitude = longitude;
+        this.mLatitude = latitude;
+        this.mLongitude = longitude;
         this.mCategories = categories;
     }
 
@@ -55,13 +62,13 @@ public class Restaurant {
         return mAddress;
     }
 //
-//    public double getLatitude() {
-//        return mLatitude;
-//    }
-//
-//    public double getLongitude() {
-//        return mLongitude;
-//    }
+    public double getLatitude() {
+        return mLatitude;
+    }
+
+    public double getLongitude() {
+        return mLongitude;
+    }
 
     public ArrayList<String> getCategories() {
         return mCategories;
