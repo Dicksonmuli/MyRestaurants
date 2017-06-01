@@ -69,9 +69,9 @@ public class YelpService {
                     double rating = restaurantJSON.getDouble("rating");
                     String imageUrl = restaurantJSON.getString("image_url");
                     double latitude = restaurantJSON
-                            .getJSONObject("coordinate").getDouble("latitude");
+                            .getJSONObject("coordinates").getDouble("latitude");
                     double longitude = restaurantJSON
-                            .getJSONObject("coordinate").getDouble("longitude");
+                            .getJSONObject("coordinates").getDouble("longitude");
                     ArrayList<String> address = new ArrayList<>();
                     JSONArray addressJSON = restaurantJSON.getJSONObject("location")
                             .getJSONArray("display_address");

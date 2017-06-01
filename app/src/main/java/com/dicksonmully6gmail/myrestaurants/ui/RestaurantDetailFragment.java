@@ -24,7 +24,7 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class RestaurantDetailFragment extends Fragment {
+public class RestaurantDetailFragment extends Fragment implements View.OnClickListener{
     private static final int MAX_WIDTH = 400;
     private static final int MAX_HEIGHT = 300;
     @Bind(R.id.restaurantImageView) ImageView mImageLabel;
@@ -77,9 +77,9 @@ public class RestaurantDetailFragment extends Fragment {
            mPhoneLabel.setText(mRestaurant.getPhone());
            mAddressLabel.setText(android.text.TextUtils.join(", ", mRestaurant.getAddress()));
 
-        mWebsiteLabel.setOnClickListener((View.OnClickListener) this);
-        mPhoneLabel.setOnClickListener((View.OnClickListener) this);
-        mAddressLabel.setOnClickListener((View.OnClickListener) this);
+        mWebsiteLabel.setOnClickListener( this);
+        mPhoneLabel.setOnClickListener(this);
+        mAddressLabel.setOnClickListener( this);
         return view;
     }
 //    implicit intent
