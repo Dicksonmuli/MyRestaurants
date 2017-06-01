@@ -1,6 +1,7 @@
 package com.dicksonmully6gmail.myrestaurants.ui;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.dicksonmully6gmail.myrestaurants.Constants;
 import com.dicksonmully6gmail.myrestaurants.R;
 
 import butterknife.Bind;
@@ -20,7 +22,11 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 //    public static final String TAG = MainActivity.class.getSimpleName();
-    private TextView mTextMessage;
+
+    //member variables to store reference to the shared preferences
+    private SharedPreferences mSharedPreferences;
+    private SharedPreferences.Editor mEditor;
+
     // butterknife to make code DRY
     @Bind(R.id.findRestaurantsButton) Button mFindRestaurantsButton;
     @Bind(R.id.locationEditText) EditText mLocationEditText;
@@ -56,6 +62,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                }
            }
     }
-
+    //a method  which takes the user-inputted zip code
+    private void addToSharedPreferences(String location) {
+        mEditor.putString(Constants.PREFERENCES_LOCATION_KEY, location).apply();
+    }
 
 }
