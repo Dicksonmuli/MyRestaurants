@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //    private SharedPreferences.Editor mEditor;
 
     private DatabaseReference mSearchedLocationReference;
+    private ValueEventListener mSearchedLocationReferenceListener;
 
     // butterknife to make code DRY
     @Bind(R.id.findRestaurantsButton) Button mFindRestaurantsButton;
@@ -67,9 +68,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                //update UI here if erroe occcured
             }
-        })
+        });
 
         Typeface alexBrushFont = Typeface.createFromAsset(getAssets(), "fonts/AlexBrush-Regular.ttf");
         mAppNameTextView.setTypeface(alexBrushFont);
@@ -109,5 +110,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        mEditor.putString(Constants.PREFERENCES_LOCATION_KEY, location).apply();
 //    }
 
+//    remove listener when the user quits interacting with the activity
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mSearchedLocationReference.removeEventListener(mSearchedLocationReferenceListener);
+    }
 
 }
