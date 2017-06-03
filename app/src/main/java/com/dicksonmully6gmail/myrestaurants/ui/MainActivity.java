@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
     //save to firebase method
     public void saveLocationtoFirebase(String location) {
-        mSearchedLocationReference.setValue(location);
+        mSearchedLocationReference.push().setValue(location); //call the push() method before setting the value to prevent overwriting
     }
     //a method  which takes the user-inputted zip code
 //    private void addToSharedPreferences(String location) {
