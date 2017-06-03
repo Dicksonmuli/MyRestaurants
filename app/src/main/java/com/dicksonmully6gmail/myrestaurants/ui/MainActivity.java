@@ -15,6 +15,8 @@ import android.widget.TextView;
 
 import com.dicksonmully6gmail.myrestaurants.Constants;
 import com.dicksonmully6gmail.myrestaurants.R;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -25,8 +27,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //    public static final String TAG = MainActivity.class.getSimpleName();
 
     //member variables to store reference to the shared preferences
-    private SharedPreferences mSharedPreferences;
-    private SharedPreferences.Editor mEditor;
+//    private SharedPreferences mSharedPreferences;
+//    private SharedPreferences.Editor mEditor;
+
+    private DatabaseReference mSearchedLocationReference;
 
     // butterknife to make code DRY
     @Bind(R.id.findRestaurantsButton) Button mFindRestaurantsButton;
@@ -42,16 +46,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-
-        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        mEditor = mSharedPreferences.edit();
+//        instance of our SearchedLocations DatabaseReference
+        mSearchedLocationReference = FirebaseDatabase
+                .getInstance()
+                .getReference()
+                .child(Constants.FIREBASE_CHILD_SEARCHED_LOCATION);
 
         Typeface alexBrushFont = Typeface.createFromAsset(getAssets(), "fonts/AlexBrush-Regular.ttf");
         mAppNameTextView.setTypeface(alexBrushFont);
 
-
-
-
+//        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+//        mEditor = mSharedPreferences.edit();
         mFindRestaurantsButton.setOnClickListener(this);
 
 
@@ -61,9 +66,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
            if(v == mFindRestaurantsButton) {
                try{
                    String location = mLocationEditText.getText().toString();
-                   if(!(location).equals("")) {
-                       addToSharedPreferences(location);
-                   }
+
+                   saveLocationtoFirebase(location);
+//                   if(!(location).equals("")) {
+//                       addToSharedPreferences(location);
+//                   }
                    Intent intent = new Intent(MainActivity.this, RestaurantListActivity.class);
                    intent.putExtra("location", location);
                    startActivity(intent);
@@ -74,10 +81,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
            }
 
     }
-    //a method  which takes the user-inputted zip code
-    private void addToSharedPreferences(String location) {
-        mEditor.putString(Constants.PREFERENCES_LOCATION_KEY, location).apply();
+    //save to firebase method
+    public void saveLocationtoFirebase(String location) {
+        mSearchedLocationReference.setValue(location);
     }
+    //a method  which takes the user-inputted zip code
+//    private void addToSharedPreferences(String location) {
+//        mEditor.putString(Constants.PREFERENCES_LOCATION_KEY, location).apply();
+//    }
 
 
 }
