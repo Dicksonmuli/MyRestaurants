@@ -56,11 +56,11 @@ public class RestaurantListActivity extends AppCompatActivity {
         getRestaurants(location);
 
 //        testing shared preferences
-            mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-            mRecentAddress = mSharedPreferences.getString(Constants.PREFERENCES_LOCATION_KEY, location);
-            if (mRecentAddress != null) {
-                getRestaurants(mRecentAddress);
-            };
+//            mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+//            mRecentAddress = mSharedPreferences.getString(Constants.PREFERENCES_LOCATION_KEY, location);
+//            if (mRecentAddress != null) {
+//                getRestaurants(mRecentAddress);
+//            };
     }
     //callback method for req and res
     private void getRestaurants(String location) {
