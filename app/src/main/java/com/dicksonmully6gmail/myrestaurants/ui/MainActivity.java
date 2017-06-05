@@ -31,8 +31,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //    public static final String TAG = MainActivity.class.getSimpleName();
 
     //member variables to store reference to the shared preferences
-//    private SharedPreferences mSharedPreferences;
-//    private SharedPreferences.Editor mEditor;
+    private SharedPreferences mSharedPreferences;
+    private SharedPreferences.Editor mEditor;
 
     private DatabaseReference mSearchedLocationReference;
     private ValueEventListener mSearchedLocationReferenceListener;
@@ -111,9 +111,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mSearchedLocationReference.push().setValue(location); //call the push() method before setting the value to prevent overwriting
     }
     //a method  which takes the user-inputted zip code
-//    private void addToSharedPreferences(String location) {
-//        mEditor.putString(Constants.PREFERENCES_LOCATION_KEY, location).apply();
-//    }
+    private void addToSharedPreferences(String location) {
+        mEditor.putString(Constants.PREFERENCES_LOCATION_KEY, location).apply();
+    }
 
 //    remove listener when the user quits interacting with the activity
     @Override

@@ -5,6 +5,11 @@ import android.os.Bundle;
 
 import com.dicksonmully6gmail.myrestaurants.R;
 
-public class CreateAccountActivity {
+public class CreateAccountActivity extends AppCompatActivity{
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_create_account);
+    }
 }

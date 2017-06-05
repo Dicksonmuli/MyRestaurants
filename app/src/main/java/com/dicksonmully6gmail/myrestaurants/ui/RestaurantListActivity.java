@@ -35,7 +35,9 @@ public class RestaurantListActivity extends AppCompatActivity {
 //    @Bind(R.id.listView) ListView mListView;
 
     private SharedPreferences mSharedPreferences;
+    private SharedPreferences.Editor mEditor;
     private String mRecentAddress;
+
     public static final String TAG = RestaurantListActivity.class.getSimpleName();
 
     @Bind(R.id.recyclerView) RecyclerView mRecyclerView;
@@ -56,11 +58,11 @@ public class RestaurantListActivity extends AppCompatActivity {
         getRestaurants(location);
 
 //        testing shared preferences
-//            mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-//            mRecentAddress = mSharedPreferences.getString(Constants.PREFERENCES_LOCATION_KEY, location);
-//            if (mRecentAddress != null) {
-//                getRestaurants(mRecentAddress);
-//            };
+            mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+            mRecentAddress = mSharedPreferences.getString(Constants.PREFERENCES_LOCATION_KEY, location);
+            if (mRecentAddress != null) {
+                getRestaurants(mRecentAddress);
+            };
     }
     //callback method for req and res
     private void getRestaurants(String location) {
