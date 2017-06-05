@@ -160,4 +160,8 @@ public class RestaurantListActivity extends AppCompatActivity {
             }
         });
     }
+//    adding to shared preferences
+    private void addToSharedPreferences(String location) {
+        mEditor.putString(Constants.PREFERENCES_LOCATION_KEY, location).apply();
+    }
 }
