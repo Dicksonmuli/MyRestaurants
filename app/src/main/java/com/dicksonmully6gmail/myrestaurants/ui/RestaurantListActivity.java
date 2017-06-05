@@ -83,14 +83,14 @@ public class RestaurantListActivity extends AppCompatActivity {
         SearchView searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-
+//            when the query is submitted
             @Override
             public boolean onQueryTextSubmit(String query) {
                 addToSharedPreferences(query);
                 getRestaurants(query);
                 return false;
             }
-
+//            when there is a noticable change on the search texteditor
             @Override
             public boolean onQueryTextChange(String newText) {
                 return false;
