@@ -26,14 +26,15 @@
         <activity android:name=".ui.RestaurantListActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicksonmully6gmail.myrestaurants.ui.MainActivity"></meta-data>
+                android:value="com.dicksonmully6gmail.myrestaurants.ui.MainActivity" />
         </activity>
         <activity android:name=".ui.RestaurantDetailActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.dicksonmully6gmail.myrestaurants.ui.RestaurantDetailActivity"></meta-data>
+                android:value="com.dicksonmully6gmail.myrestaurants.ui.RestaurantDetailActivity" />
         </activity>
-        <activity android:name=".ui.SavedRestaurantListActivity"></activity>
+        <activity android:name=".ui.SavedRestaurantListActivity" />
+        <activity android:name=".ui.CreateAccountActivity"></activity>
     </application>
 
 </manifest>
