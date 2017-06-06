@@ -1,18 +1,29 @@
 package com.dicksonmully6gmail.myrestaurants.ui;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dicksonmully6gmail.myrestaurants.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 
 import butterknife.Bind;
 
 public class CreateAccountActivity extends AppCompatActivity implements View.OnClickListener{
+
+    public static final String TAG = CreateAccountActivity.class.getSimpleName();
+
+    private FirebaseAuth mAuth;
     @Bind(R.id.createUserButton) Button mCreateUserButton;
     @Bind(R.id.nameEditText) EditText mNameEditText;
     @Bind(R.id.emailEditText) EditText mEmailEditText;
@@ -25,9 +36,15 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_account);
+        createAuthStateListener();
+        try {
+            mLoginTextView.setOnClickListener(this);
+            mCreateUserButton.setOnClickListener(this);
+        }catch (NullPointerException e) {
+            e.printStackTrace();
+        }
 
-        mLoginTextView.setOnClickListener(this);
-        mCreateUserButton.setOnClickListener(this);
+
     }
 
     @Override
@@ -41,5 +58,24 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
         if (view == mCreateUserButton) {
             createNewUser();
         }
-    }g
+    }
+    private void createNewUser() {
+        final String name = mNameEditText.getText().toString().trim();
+        final String email = mEmailEditText.getText().toString().trim();
+        String password = mPasswordEditText.getText().toString().trim();
+        String confirmPassword = mConfirmPasswordEditText.getText().toString().trim();
+
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            Log.d(TAG, "AUTHENTICATION SUCCESSFUL");
+                        } else {
+                            Toast.makeText(CreateAccountActivity.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+    }
 }
