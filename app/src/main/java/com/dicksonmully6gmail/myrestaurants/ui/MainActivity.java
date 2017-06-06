@@ -31,11 +31,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //    public static final String TAG = MainActivity.class.getSimpleName();
 
     //member variables to store reference to the shared preferences
-    private SharedPreferences mSharedPreferences;
-    private SharedPreferences.Editor mEditor;
-
-    private DatabaseReference mSearchedLocationReference;
-    private ValueEventListener mSearchedLocationReferenceListener;
+//    private SharedPreferences mSharedPreferences;
+//    private SharedPreferences.Editor mEditor;
+//
+//    private DatabaseReference mSearchedLocationReference;
+//    private ValueEventListener mSearchedLocationReferenceListener;
 
     // butterknife to make code DRY
     @Bind(R.id.findRestaurantsButton) Button mFindRestaurantsButton;
@@ -52,25 +52,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 //        instance of our SearchedLocations DatabaseReference
-        mSearchedLocationReference = FirebaseDatabase
-                .getInstance()
-                .getReference()
-                .child(Constants.FIREBASE_CHILD_SEARCHED_LOCATION); //pinpoint location node
-
-        mSearchedLocationReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {//when smth change
-                for (DataSnapshot locationSnapshot : dataSnapshot.getChildren()) {
-                    String location = locationSnapshot.getValue().toString();
-                    Log.d("Location updated", "locaton: " + location);
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                //update UI here if erroe occcured
-            }
-        });
+//        mSearchedLocationReference = FirebaseDatabase
+//                .getInstance()
+//                .getReference()
+//                .child(Constants.FIREBASE_CHILD_SEARCHED_LOCATION); //pinpoint location node
+//
+//        mSearchedLocationReference.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {//when smth change
+//                for (DataSnapshot locationSnapshot : dataSnapshot.getChildren()) {
+//                    String location = locationSnapshot.getValue().toString();
+//                    Log.d("Location updated", "locaton: " + location);
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//                //update UI here if erroe occcured
+//            }
+//        });
 
         Typeface alexBrushFont = Typeface.createFromAsset(getAssets(), "fonts/AlexBrush-Regular.ttf");
         mAppNameTextView.setTypeface(alexBrushFont);
@@ -85,10 +85,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
            if(v == mFindRestaurantsButton) {
-               try{
                    String location = mLocationEditText.getText().toString();
 
-                   saveLocationtoFirebase(location);
+//                   saveLocationtoFirebase(location);
 //                   if(!(location).equals("")) {
 //                       addToSharedPreferences(location);
 //                   }
@@ -96,9 +95,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                    intent.putExtra("location", location);
                    startActivity(intent);
 
-               }catch (Exception e) {
-                   System.out.println("Ooops! No Restaurants Found!! " + e.getMessage());
-               }
            }
         if (v == mSavedRestaurantsButton) {
             Intent intent = new Intent(MainActivity.this, SavedRestaurantListActivity.class);
@@ -107,23 +103,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
     //save to firebase method
-    public void saveLocationtoFirebase(String location) {
-        mSearchedLocationReference.push().setValue(location); //call the push() method before setting the value to prevent overwriting
-    }
+//    public void saveLocationtoFirebase(String location) {
+//        mSearchedLocationReference.push().setValue(location); //call the push() method before setting the value to prevent overwriting
+//    }
     //a method  which takes the user-inputted zip code
-    private void addToSharedPreferences(String location) {
-        mEditor.putString(Constants.PREFERENCES_LOCATION_KEY, location).apply();
-    }
+//    private void addToSharedPreferences(String location) {
+//        mEditor.putString(Constants.PREFERENCES_LOCATION_KEY, location).apply();
+//    }
 
 //    remove listener when the user quits interacting with the activity
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        try {
-            mSearchedLocationReference.removeEventListener(mSearchedLocationReferenceListener);
-        }catch (NullPointerException e) {
-            e.printStackTrace();
-        }
-    }
+//    @Override
+//    protected void onDestroy() {
+//        super.onDestroy();
+//        try {
+//            mSearchedLocationReference.removeEventListener(mSearchedLocationReferenceListener);
+//        }catch (NullPointerException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
 }
