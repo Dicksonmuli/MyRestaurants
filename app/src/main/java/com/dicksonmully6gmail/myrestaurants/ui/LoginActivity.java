@@ -2,13 +2,19 @@ package com.dicksonmully6gmail.myrestaurants.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dicksonmully6gmail.myrestaurants.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 import butterknife.Bind;
@@ -26,6 +32,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Bind(R.id.registerTextView) TextView mRegisterTextView;
 
     private FirebaseAuth mAuth;
+    public static final String TAG = LoginActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,5 +70,22 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             mPasswordEditText.setError("Password cannot be blank");
             return;
         }
+        /**
+         *  adding onComplete listener
+         *  -is responsible for determining when the authentication attempt is complete,
+         *  and executes the onComplete() override when it is
+         */
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener< AuthResult>() {
+           @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+               Log.d(TAG,"singInWithEmail:onComplete:" + task.isSuccessful());
+               if (!task.isSuccessful()) {
+                   Log.w(TAG, "signInWithEmail", task.getException());
+                   Toast.makeText(LoginActivity.this, "Authentication failed.", Toast.LENGTH_SHORT)
+                           .show();
+               }
+           }
+        });
     }
 }
