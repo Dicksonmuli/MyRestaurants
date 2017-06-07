@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.dicksonmully6gmail.myrestaurants.Constants;
 import com.dicksonmully6gmail.myrestaurants.R;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -120,6 +121,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+    //logout method
+    private void logout() {
+        FirebaseAuth.getInstance().signOut();
+        //returning to login activity after the user logs out
+        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
     }
     //save to firebase method
 //    public void saveLocationtoFirebase(String location) {
