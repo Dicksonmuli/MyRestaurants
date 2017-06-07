@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     // butterknife to make code DRY
     @Bind(R.id.findRestaurantsButton) Button mFindRestaurantsButton;
-    @Bind(R.id.locationEditText) EditText mLocationEditText;
+//    @Bind(R.id.locationEditText) EditText mLocationEditText;
     @Bind(R.id.appNameTextView) TextView mAppNameTextView;
     @Bind(R.id.savedRestaurantsButton) Button mSavedRestaurantsButton;
 
@@ -85,14 +85,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
            if(v == mFindRestaurantsButton) {
-                   String location = mLocationEditText.getText().toString();
+//                   String location = mLocationEditText.getText().toString();
 
 //                   saveLocationtoFirebase(location);
 //                   if(!(location).equals("")) {
 //                       addToSharedPreferences(location);
 //                   }
                    Intent intent = new Intent(MainActivity.this, RestaurantListActivity.class);
-                   intent.putExtra("location", location);
+//                   intent.putExtra("location", location);
                    startActivity(intent);
 
            }

@@ -64,7 +64,7 @@ public class RestaurantListActivity extends AppCompatActivity {
 
 //        testing shared preferences
             mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-            mRecentAddress = mSharedPreferences.getString(Constants.PREFERENCES_LOCATION_KEY, location);
+            mRecentAddress = mSharedPreferences.getString(Constants.PREFERENCES_LOCATION_KEY, null);
             if (mRecentAddress != null) {
                 getRestaurants(mRecentAddress);
             };
