@@ -35,6 +35,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         ButterKnife.bind(this);
         mAuth = FirebaseAuth.getInstance();
         mRegisterTextView.setOnClickListener(this);
+
+//        click listener to mPasswordLoginButton
+        mPasswordLoginButton.setOnClickListener(this);
     }
 
     @Override
@@ -43,6 +46,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
          Intent intent = new Intent(LoginActivity.this, CreateAccountActivity.class);
          startActivity(intent);
          finish();
+     }
+     if (view == mPasswordLoginButton) {
+         loginWithPassword();
      }
     }
 }
