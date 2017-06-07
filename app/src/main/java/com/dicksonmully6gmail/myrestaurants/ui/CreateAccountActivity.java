@@ -1,5 +1,6 @@
 package com.dicksonmully6gmail.myrestaurants.ui;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -35,6 +36,7 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
     @Bind(R.id.confirmPasswordEditText) EditText mConfirmPasswordEditText;
     @Bind(R.id.loginTextView) TextView mLoginTextView;
 
+    private ProgressDialog mAuthProgressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +44,7 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
         setContentView(R.layout.activity_create_account);
         ButterKnife.bind(this);
         createAuthStateListener();
+        createAuthProgressDialog();
 
         mAuth = FirebaseAuth.getInstance();
         mLoginTextView.setOnClickListener(this);
@@ -67,7 +70,13 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
             mAuth.removeAuthStateListener(mAuthListener);
         }
     }
-
+    //progress dialog method
+    private void createAuthProgressDialog() {
+        mAuthProgressDialog = new ProgressDialog(this);
+        mAuthProgressDialog.setTitle("Loading...");
+        mAuthProgressDialog.setMessage("Authenticating with database...");
+        mAuthProgressDialog.setCancelable(false);
+    }
     @Override
     public void onClick(View view) {
         if (view == mLoginTextView) {
