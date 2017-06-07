@@ -19,6 +19,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import butterknife.Bind;
+import butterknife.ButterKnife;
 
 public class CreateAccountActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -38,13 +39,13 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_account);
+        ButterKnife.bind(this);
         createAuthStateListener();
-        try {
-            mLoginTextView.setOnClickListener(this);
-            mCreateUserButton.setOnClickListener(this);
-        }catch (NullPointerException e) {
-            e.printStackTrace();
-        }
+
+        mAuth = FirebaseAuth.getInstance();
+        mLoginTextView.setOnClickListener(this);
+        mCreateUserButton.setOnClickListener(this);
+
 
 
     }
@@ -90,7 +91,8 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Log.d(TAG, "AUTHENTICATION SUCCESSFUL");
+                            Toast.makeText(CreateAccountActivity.this, "Authentication Successful.",
+                                    Toast.LENGTH_SHORT).show();
                         } else {
                             Toast.makeText(CreateAccountActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
