@@ -111,6 +111,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         inflater.inflate(R.menu.menu_main, menu);
         return super.onCreateOptionsMenu(menu);
     }
+//    action for item selected in the menu
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_logout) {
+            logout();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
     //save to firebase method
 //    public void saveLocationtoFirebase(String location) {
 //        mSearchedLocationReference.push().setValue(location); //call the push() method before setting the value to prevent overwriting
