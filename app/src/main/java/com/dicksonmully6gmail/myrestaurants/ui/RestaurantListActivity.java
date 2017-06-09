@@ -21,6 +21,8 @@ import com.dicksonmully6gmail.myrestaurants.R;
 import com.dicksonmully6gmail.myrestaurants.adapters.RestaurantListAdapter;
 import com.dicksonmully6gmail.myrestaurants.models.Restaurant;
 import com.dicksonmully6gmail.myrestaurants.services.YelpService;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -49,6 +51,7 @@ public class RestaurantListActivity extends AppCompatActivity {
     private RestaurantListAdapter mAdapter;
 //
     public ArrayList<Restaurant> mRestaurants = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +71,7 @@ public class RestaurantListActivity extends AppCompatActivity {
             if (mRecentAddress != null) {
                 getRestaurants(mRecentAddress);
             };
+
     }
 //    options menu
     @Override

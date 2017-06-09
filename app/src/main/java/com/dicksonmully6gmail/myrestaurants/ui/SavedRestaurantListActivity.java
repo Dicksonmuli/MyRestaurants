@@ -10,6 +10,8 @@ import com.dicksonmully6gmail.myrestaurants.R;
 import com.dicksonmully6gmail.myrestaurants.adapters.FirebaseRestaurantViewHolder;
 import com.dicksonmully6gmail.myrestaurants.models.Restaurant;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -29,6 +31,13 @@ public class SavedRestaurantListActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_restaurants);
         ButterKnife.bind(this);
+
+        /** getting current user by user id
+         * in order to display "Saved Restaurants" list
+         * associated with the user currently logged in
+         */
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String uid = user.getUid();
 
         mRestaurantReference = FirebaseDatabase
                 .getInstance()
