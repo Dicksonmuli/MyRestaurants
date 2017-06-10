@@ -40,7 +40,6 @@
         android:background="@drawable/round_shape_btn"
         android:textColor="@color/colorTextIcons"
         android:visibility="visible"
-        android:radius="30dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
     <Button

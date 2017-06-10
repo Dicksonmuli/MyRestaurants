@@ -72,7 +72,7 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
             mAuth.removeAuthStateListener(mAuthListener);
         }
     }
-    //progress dialog method
+    //progress dialog method for authenticating with firebase
     private void createAuthProgressDialog() {
         mAuthProgressDialog = new ProgressDialog(this);
         mAuthProgressDialog.setTitle("Loading...");
@@ -103,7 +103,7 @@ public class CreateAccountActivity extends AppCompatActivity implements View.OnC
         boolean validEmail = isValidEmail(email);
         boolean validName = isValidName(mName);
         boolean validPassword = isValidPassword(password, confirmPassword);
-        if (!validEmail || ! validName || validPassword) return;
+        if (!validEmail || ! validName || !validPassword) return;
 
         mAuthProgressDialog.show();
 
