@@ -16,6 +16,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Query;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Created by dickson on 6/11/17.
@@ -84,14 +85,28 @@ public class FirebaseRestaurantListAdapter extends FirebaseRecyclerAdapter<Resta
     }
     @Override
     public boolean onItemMove(int fromPosition, int toPosition) {
+        //updates the order of mRestaurants ArrayList items passing in the list
+        Collections.swap(mRestaurants, fromPosition, toPosition);
         //notifies the adapter that the underlying data has been changed
         notifyItemMoved(fromPosition, toPosition);
         return false;
     }
     @Override
     public void onItemDismiss(int position) {
+        //removes the item from mRestaurants at the given position
+        mRestaurants.remove(position);
         //getRef() returns the DatabaseReference and .removeValue() deletes the object from firebase
         getRef(position).removeValue();
 
     }
+    //re-assigning the "index" property for each restaurant object in our array list and saving it to Firebase:
+    private void setIndexInFirebase() {
+        for (Restaurant restaurant : mRestaurants) {
+            int index = mRestaurants.indexOf(restaurant);
+            DatabaseReference ref = getRef(index);
+            restaurant.setIndex(Integer.toString(index));
+            ref.setValue(restaurant);
+        }
+    }
+
 }
