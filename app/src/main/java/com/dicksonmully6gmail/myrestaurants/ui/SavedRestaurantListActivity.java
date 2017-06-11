@@ -18,6 +18,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -54,15 +55,19 @@ public class SavedRestaurantListActivity extends AppCompatActivity implements On
     private void setUpFirebaseAdapter() {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         String uid = user.getUid();
-
-        mRestaurantReference = FirebaseDatabase
+        /* Query object
+         * Refactoring - creating query object in place of DatabaseReference
+         * FirebaseArrayAdapter accepts either a DatabaseReference or a Query
+         */
+        Query query = FirebaseDatabase
                 .getInstance()
                 .getReference(Constants.FIREBASE_CHILD_RESTAURANTS)
-                .child(uid);
-
+                .child(uid)
+                .orderByChild(Constants.FIREBASE_QUERY_INDEX);
+        //passing in query in place of DatabaseReference
         mFirebaseAdapter = new FirebaseRestaurantListAdapter
                 (Restaurant.class, R.layout.restaurant_list_item_drag, FirebaseRestaurantViewHolder.class,
-                        mRestaurantReference, this, this);
+                        query, this, this);
 
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
