@@ -28,4 +28,16 @@ public class FirebaseRestaurantListAdapter extends FirebaseRecyclerAdapter<Resta
         mOnStartDragListener = onStartDragListener;
         mContext = context;
     }
+    @Override
+    protected void populateViewHolder(FirebaseRestaurantViewHolder viewHolder, Restaurant model, int position) {
+        viewHolder.bindRestaurant(model);
+    }
+    @Override
+    public boolean onItemMove(int fromPosition, int toPosition) {
+        return false;
+    }
+    @Override
+    public void onItemDismiss(int position) {
+
+    }
 }
