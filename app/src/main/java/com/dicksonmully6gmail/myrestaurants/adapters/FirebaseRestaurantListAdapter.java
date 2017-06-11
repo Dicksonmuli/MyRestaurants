@@ -34,6 +34,7 @@ public class FirebaseRestaurantListAdapter extends FirebaseRecyclerAdapter<Resta
     @Override
     protected void populateViewHolder(final FirebaseRestaurantViewHolder viewHolder, Restaurant model, int position) {
         viewHolder.bindRestaurant(model);
+        //setting ontouch listener on mRestaurantImageView
         viewHolder.mRestaurantImageView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -47,10 +48,14 @@ public class FirebaseRestaurantListAdapter extends FirebaseRecyclerAdapter<Resta
     }
     @Override
     public boolean onItemMove(int fromPosition, int toPosition) {
+        //notifies the adapter that the underlying data has been changed
+        notifyItemMoved(fromPosition, toPosition);
         return false;
     }
     @Override
     public void onItemDismiss(int position) {
+        //getRef() returns the DatabaseReference and .removeValue() deletes the object from firebase
+        getRef(position).removeValue();
 
     }
 }

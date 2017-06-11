@@ -11,6 +11,7 @@ import com.dicksonmully6gmail.myrestaurants.R;
 import com.dicksonmully6gmail.myrestaurants.adapters.FirebaseRestaurantListAdapter;
 import com.dicksonmully6gmail.myrestaurants.adapters.FirebaseRestaurantViewHolder;
 import com.dicksonmully6gmail.myrestaurants.models.Restaurant;
+import com.dicksonmully6gmail.myrestaurants.util.OnStartDragListener;
 import com.dicksonmully6gmail.myrestaurants.util.SimpleItemTouchHelperCallback;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
@@ -21,10 +22,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class SavedRestaurantListActivity extends AppCompatActivity {
+public class SavedRestaurantListActivity extends AppCompatActivity implements OnStartDragListener {
 
     private DatabaseReference mRestaurantReference;
-    private FirebaseRecyclerAdapter mFirebaseAdapter;
+    private FirebaseRestaurantListAdapter mFirebaseAdapter;
     private ItemTouchHelper mItemTouchHelper;
 
     @Bind(R.id.recyclerView) RecyclerView mRecyclerView;
@@ -67,6 +68,7 @@ public class SavedRestaurantListActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(mFirebaseAdapter);
 
+//        attach itemTouchHelper to enable the interfaces to communicate with the necessary callbacks
         ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(mFirebaseAdapter);
         mItemTouchHelper = new ItemTouchHelper(callback);
         mItemTouchHelper.attachToRecyclerView(mRecyclerView);
@@ -77,7 +79,11 @@ public class SavedRestaurantListActivity extends AppCompatActivity {
         super.onDestroy();
         mFirebaseAdapter.cleanup();
     }
-    //onstartdrag listener
+
+    /** onstartdrag listener override
+     *  which will eventually send our touch events back to our SimpleItemTouchHelperCallback
+     * @param viewHolder
+     */
     @Override
     public void onStartDrag(RecyclerView.ViewHolder viewHolder) {
         mItemTouchHelper.startDrag(viewHolder);
