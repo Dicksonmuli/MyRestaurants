@@ -86,6 +86,7 @@ public class FirebaseRestaurantListAdapter extends FirebaseRecyclerAdapter<Resta
             }
 
         });
+//        adding onclick listener
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
