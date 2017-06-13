@@ -58,7 +58,6 @@ dependencies {
     //    an extension for signing the OAuth requests that OkHttp will send and receive
     //    recycler view dependancy
     //    picasso image organizer
-    
 
     //    Firebase-database dependency in order to utilize the realtime database service
     //    firebase UI
