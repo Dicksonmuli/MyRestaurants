@@ -114,11 +114,8 @@ public class RestaurantListFragment extends Fragment {
 
             @Override
             public void onResponse(Call call, Response response) {
-                try {
                     mRestaurants = yelpService.processResults(response);
-                }catch (StringIndexOutOfBoundsException e) {
-                    e.printStackTrace();
-                }
+
 
 
                 getActivity().runOnUiThread(new Runnable() {
