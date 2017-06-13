@@ -85,7 +85,8 @@ public class SavedRestaurantListFragment extends Fragment implements OnStartDrag
     }
 
     @Override
-    protected void onDestroy() {
+    //method is now public
+    public void onDestroy() {
         super.onDestroy();
         mFirebaseAdapter.cleanup();
     }

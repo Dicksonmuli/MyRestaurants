@@ -23,74 +23,14 @@ import com.google.firebase.database.Query;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class SavedRestaurantListActivity extends AppCompatActivity implements OnStartDragListener {
+public class SavedRestaurantListActivity extends AppCompatActivity  {
 
-    private DatabaseReference mRestaurantReference;
-    private FirebaseRestaurantListAdapter mFirebaseAdapter;
-    private ItemTouchHelper mItemTouchHelper;
-
-    @Bind(R.id.recyclerView) RecyclerView mRecyclerView;
+   //refactoring this activity to a fragment
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_restaurants);
-        ButterKnife.bind(this);
-
-        /** getting current user by user id
-         * in order to display "Saved Restaurants" list
-         * associated with the user currently logged in
-         */
-//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-//        String uid = user.getUid();
-//
-//        mRestaurantReference = FirebaseDatabase
-//                .getInstance()
-//                .getReference(Constants.FIREBASE_CHILD_RESTAURANTS)
-//                .child(uid);
-        setUpFirebaseAdapter();
-
-    }
-    private void setUpFirebaseAdapter() {
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        String uid = user.getUid();
-        /* Query object
-         * Refactoring - creating query object in place of DatabaseReference
-         * FirebaseArrayAdapter accepts either a DatabaseReference or a Query
-         */
-        Query query = FirebaseDatabase
-                .getInstance()
-                .getReference(Constants.FIREBASE_CHILD_RESTAURANTS)
-                .child(uid)
-                .orderByChild(Constants.FIREBASE_QUERY_INDEX);
-        //passing in query in place of DatabaseReference
-        mFirebaseAdapter = new FirebaseRestaurantListAdapter
-                (Restaurant.class, R.layout.restaurant_list_item_drag, FirebaseRestaurantViewHolder.class,
-                        query, this, this);
-
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mRecyclerView.setAdapter(mFirebaseAdapter);
-
-//        attach itemTouchHelper to enable the interfaces to communicate with the necessary callbacks
-        ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(mFirebaseAdapter);
-        mItemTouchHelper = new ItemTouchHelper(callback);
-        mItemTouchHelper.attachToRecyclerView(mRecyclerView);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mFirebaseAdapter.cleanup();
-    }
-
-    /** onstartdrag listener override
-     *  which will eventually send our touch events back to our SimpleItemTouchHelperCallback
-     * @param viewHolder
-     */
-    @Override
-    public void onStartDrag(RecyclerView.ViewHolder viewHolder) {
-        mItemTouchHelper.startDrag(viewHolder);
     }
 }
