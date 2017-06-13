@@ -98,6 +98,10 @@ public class RestaurantListFragment extends Fragment {
             }
         });
     }
+    //adding to sharedPreferences
+    private void addToSharedPreferences(String location) {
+        mEditor.putString(Constants.PREFERENCES_LOCATION_KEY, location).apply();
+    }
     public void getRestaurants(String location) {
         final YelpService yelpService = new YelpService();
 
