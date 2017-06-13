@@ -77,6 +77,15 @@ public class SavedRestaurantListFragment extends Fragment implements OnStartDrag
         //because fragments do not have own context
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setAdapter(mFirebaseAdapter);
+        //adding AdapterDataObserver on firebase adapter to help load saved restaurants
+        mFirebaseAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+            @Override
+            public void onItemRangeInserted(int positionStart, int itemCount) {
+                super.onItemRangeInserted(positionStart, itemCount);
+                mFirebaseAdapter.notifyDataSetChanged();
+            }
+        });
+
 
 //        attach itemTouchHelper to enable the interfaces to communicate with the necessary callbacks
         ItemTouchHelper.Callback callback = new com.dicksonmully6gmail.myrestaurants.util.SimpleItemTouchHelperCallback(mFirebaseAdapter);

@@ -114,7 +114,12 @@ public class RestaurantListFragment extends Fragment {
 
             @Override
             public void onResponse(Call call, Response response) {
-                mRestaurants = yelpService.processResults(response);
+                try {
+                    mRestaurants = yelpService.processResults(response);
+                }catch (StringIndexOutOfBoundsException e) {
+                    e.printStackTrace();
+                }
+
 
                 getActivity().runOnUiThread(new Runnable() {
                     // Line above states 'getActivity()' instead of previous 'RestaurantListActivity.this'
