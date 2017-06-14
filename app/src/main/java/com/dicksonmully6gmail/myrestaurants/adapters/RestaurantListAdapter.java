@@ -3,6 +3,8 @@ package com.dicksonmully6gmail.myrestaurants.adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,9 +12,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.dicksonmully6gmail.myrestaurants.Constants;
 import com.dicksonmully6gmail.myrestaurants.R;
 import com.dicksonmully6gmail.myrestaurants.models.Restaurant;
 import com.dicksonmully6gmail.myrestaurants.ui.RestaurantDetailActivity;
+import com.dicksonmully6gmail.myrestaurants.ui.RestaurantDetailFragment;
 import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;
@@ -76,15 +80,31 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
             if (mOrientation == Configuration.ORIENTATION_LANDSCAPE) {
                 createDetailFragment(0);
             }
+
+        }
+        // Takes position of restaurant in list as parameter:
+        private void createDetailFragment(int position) {
+            // Creates new RestaurantDetailFragment with the given position:
+            RestaurantDetailFragment detailFragment = RestaurantDetailFragment.newInstance(mRestaurants, position);
+            // Gathers necessary components to replace the FrameLayout in the layout with the RestaurantDetailFragment:
+            FragmentTransaction ft = ((FragmentActivity) mContext).getSupportFragmentManager().beginTransaction();
+            //  Replaces the FrameLayout with the RestaurantDetailFragment:
+            ft.replace(R.id.restaurantDetailContainer, detailFragment);
+            // Commits these changes:
+            ft.commit();
         }
 //        creates an intent to navigate to our RestaurantDetailActivity
         @Override
         public void onClick(View v) {
             int itemPosition = getLayoutPosition();
-            Intent intent = new Intent(mContext, RestaurantDetailActivity.class);
-            intent.putExtra("position", itemPosition);
-            intent.putExtra("restaurants", Parcels.wrap(mRestaurants));
-            mContext.startActivity(intent);
+            if (mOrientation == Configuration.ORIENTATION_LANDSCAPE) {
+                createDetailFragment(itemPosition);
+            } else {
+                Intent intent = new Intent(mContext, RestaurantDetailActivity.class);
+                intent.putExtra(Constants.EXTRA_KEY_POSITION, itemPosition);
+                intent.putExtra(Constants.EXTRA_KEY_RESTAURANTS, Parcels.wrap(mRestaurants));
+                mContext.startActivity(intent);
+            }
         }
 
         public void bindRestaurant(Restaurant restaurant) {

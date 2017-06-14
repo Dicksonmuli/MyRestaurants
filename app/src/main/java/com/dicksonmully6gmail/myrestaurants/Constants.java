@@ -17,4 +17,7 @@ public class Constants {
         public static final String FIREBASE_CHILD_RESTAURANTS = "restaurants";
 //        index string constant to reference the 'index' key of Restaurant objects
         public static final String FIREBASE_QUERY_INDEX = "index";
+
+        public static final String EXTRA_KEY_POSITION = "position";
+        public static final String EXTRA_KEY_RESTAURANTS = "restaurants";
 }
