@@ -2,6 +2,7 @@ package com.dicksonmully6gmail.myrestaurants.ui;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.preference.PreferenceManager;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -25,6 +26,8 @@ import com.dicksonmully6gmail.myrestaurants.util.OnRestaurantSelectedListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import org.parceler.Parcels;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -40,12 +43,43 @@ public class RestaurantListActivity extends AppCompatActivity implements OnResta
 //    member variable
         private Integer mPosition;
         ArrayList<Restaurant> mRestaurants;
+    //updating activity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_restaurants);
 
+
+        if (savedInstanceState != null) {
+
+            if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                mPosition = savedInstanceState.getInt(Constants.EXTRA_KEY_POSITION);
+                mRestaurants = Parcels.unwrap(savedInstanceState.getParcelable(Constants.EXTRA_KEY_RESTAURANTS));
+
+                if (mPosition != null && mRestaurants != null) {
+                    Intent intent = new Intent(this, RestaurantDetailActivity.class);
+                    intent.putExtra(Constants.EXTRA_KEY_POSITION, mPosition);
+                    intent.putExtra(Constants.EXTRA_KEY_RESTAURANTS, Parcels.wrap(mRestaurants));
+                    startActivity(intent);
+                }
+
+            }
+
+        }
+
     }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        if (mPosition != null && mRestaurants != null) {
+            outState.putInt(Constants.EXTRA_KEY_POSITION, mPosition);
+            outState.putParcelable(Constants.EXTRA_KEY_RESTAURANTS, Parcels.wrap(mRestaurants));
+        }
+
+    }
+
 
     //overriding interface
     @Override

@@ -106,6 +106,13 @@ public class RestaurantListFragment extends Fragment {
     private void addToSharedPreferences(String location) {
         mEditor.putString(Constants.PREFERENCES_LOCATION_KEY, location).apply();
     }
+
+    /**
+     * in order to allow fragments and activities to communicate
+     * we need to capture an instance of our interface
+     * and cast it into the context of the activities we need to communicate with
+     * @param context
+     */
     //onAttach lifecyle
     @Override
     public void onAttach(Context context) {
@@ -138,7 +145,7 @@ public class RestaurantListFragment extends Fragment {
 
                     @Override
                     public void run() {
-                        mAdapter = new RestaurantListAdapter(getActivity(), mRestaurants);
+                        mAdapter = new RestaurantListAdapter(getActivity(), mRestaurants, mOnRestaurantSelectedListener);
                         // Line above states `getActivity()` instead of previous
                         // 'getApplicationContext()' because fragments do not have own context,
                         // must instead inherit it from corresponding activity.

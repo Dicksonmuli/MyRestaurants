@@ -67,11 +67,14 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
         @Bind(R.id.categoryTextView) TextView mCategoryTextView;
         @Bind(R.id.ratingTextView) TextView mRatingTextView;
 
-        private Context mContext;
         //member variable integer for orientation
         private int mOrientation;
+        private ArrayList<Restaurant> mRestaurants = new ArrayList<>();
+        private Context mContext;
+        private OnRestaurantSelectedListener mRestaurantSelectedListener;
 
-        public RestaurantViewHolder(View itemView) {
+        public RestaurantViewHolder(View itemView, ArrayList<Restaurant> restaurants,
+                                    OnRestaurantSelectedListener restaurantSelectedListener) {
             super(itemView);
             ButterKnife.bind(this, itemView);
             mContext = itemView.getContext();
@@ -80,6 +83,8 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
             mOrientation = itemView.getResources().getConfiguration().orientation;
             // Checks if the recorded orientation matches Android's landscape configuration.
             // if so, we create a new DetailFragment to display in our special landscape layout:
+            mRestaurants = restaurants;
+            mRestaurantSelectedListener = restaurantSelectedListener;
             if (mOrientation == Configuration.ORIENTATION_LANDSCAPE) {
                 createDetailFragment(0);
             }
@@ -100,6 +105,7 @@ public class RestaurantListAdapter extends RecyclerView.Adapter<RestaurantListAd
         @Override
         public void onClick(View v) {
             int itemPosition = getLayoutPosition();
+            mRestaurantSelectedListener.onRestaurantSelected(itemPosition, mRestaurants);
             if (mOrientation == Configuration.ORIENTATION_LANDSCAPE) {
                 createDetailFragment(itemPosition);
             } else {
