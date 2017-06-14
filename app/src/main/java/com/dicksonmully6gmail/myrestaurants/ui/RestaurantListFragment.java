@@ -1,6 +1,7 @@
 package com.dicksonmully6gmail.myrestaurants.ui;
 
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -21,6 +22,7 @@ import com.dicksonmully6gmail.myrestaurants.R;
 import com.dicksonmully6gmail.myrestaurants.adapters.RestaurantListAdapter;
 import com.dicksonmully6gmail.myrestaurants.models.Restaurant;
 import com.dicksonmully6gmail.myrestaurants.services.YelpService;
+import com.dicksonmully6gmail.myrestaurants.util.OnRestaurantSelectedListener;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -41,6 +43,8 @@ public class RestaurantListFragment extends Fragment {
     private SharedPreferences mSharedPreferences;
     private SharedPreferences.Editor mEditor;
     private String mRecentAddress;
+    private OnRestaurantSelectedListener mOnRestaurantSelectedListener;
+
     @Bind(R.id.recyclerView) RecyclerView mRecyclerView;
 
     public RestaurantListFragment() {
@@ -101,6 +105,16 @@ public class RestaurantListFragment extends Fragment {
     //adding to sharedPreferences
     private void addToSharedPreferences(String location) {
         mEditor.putString(Constants.PREFERENCES_LOCATION_KEY, location).apply();
+    }
+    //onAttach lifecyle
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            mOnRestaurantSelectedListener = (OnRestaurantSelectedListener) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString() + e.getMessage());
+        }
     }
     public void getRestaurants(String location) {
         final YelpService yelpService = new YelpService();

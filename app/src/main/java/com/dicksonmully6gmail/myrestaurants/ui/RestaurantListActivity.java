@@ -21,6 +21,7 @@ import com.dicksonmully6gmail.myrestaurants.R;
 import com.dicksonmully6gmail.myrestaurants.adapters.RestaurantListAdapter;
 import com.dicksonmully6gmail.myrestaurants.models.Restaurant;
 import com.dicksonmully6gmail.myrestaurants.services.YelpService;
+import com.dicksonmully6gmail.myrestaurants.util.OnRestaurantSelectedListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -33,14 +34,24 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
-public class RestaurantListActivity extends AppCompatActivity {
+public class RestaurantListActivity extends AppCompatActivity implements OnRestaurantSelectedListener{
 //refactored to have list content on RestaurantListFragment
+
+//    member variable
+        private Integer mPosition;
+        ArrayList<Restaurant> mRestaurants;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_restaurants);
-//
 
     }
-//
+
+    //overriding interface
+    @Override
+    public void onRestaurantSelected(Integer position, ArrayList<Restaurant> restaurants) {
+        mPosition = position;
+        mRestaurants = restaurants;
+
+    }
 }
