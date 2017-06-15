@@ -49,14 +49,17 @@ public class RestaurantDetailFragment extends Fragment implements View.OnClickLi
     private Restaurant mRestaurant;
     private ArrayList<Restaurant> mRestaurants;
     private int mPosition;
+    private String mSource;
 
 
-    public static RestaurantDetailFragment newInstance(ArrayList<Restaurant> restaurants, Integer position) {
+    public static RestaurantDetailFragment newInstance(ArrayList<Restaurant> restaurants,
+                                                       Integer position, String source) {
         //wrapping restaurant with parcels for serialization
         RestaurantDetailFragment restaurantDetailFragment = new RestaurantDetailFragment();
         Bundle args = new Bundle();
         args.putParcelable(Constants.EXTRA_KEY_RESTAURANTS, Parcels.wrap(restaurants));
         args.putInt(Constants.EXTRA_KEY_POSITION, position);
+        args.putString(Constants.KEY_SOURCE, source);
         restaurantDetailFragment.setArguments(args);
         return restaurantDetailFragment;
     }
@@ -64,11 +67,14 @@ public class RestaurantDetailFragment extends Fragment implements View.OnClickLi
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-//        unwrapping restaurant on onCreate
         super.onCreate(savedInstanceState);
+//        unwrapping restaurant on onCreate
         mRestaurants = Parcels.unwrap(getArguments().getParcelable(Constants.EXTRA_KEY_RESTAURANTS));
         mPosition = getArguments().getInt(Constants.EXTRA_KEY_POSITION);
         mRestaurant = mRestaurants.get(mPosition);
+//        invoke the menu items
+        mSource = getArguments().getString(Constants.KEY_SOURCE);
+        setHasOptionsMenu(true);
     }
 
 //    restaurant object used to set our ImageView and TextViews in onCreateView on onCreate view
