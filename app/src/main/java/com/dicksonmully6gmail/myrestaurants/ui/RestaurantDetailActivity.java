@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
+import com.dicksonmully6gmail.myrestaurants.Constants;
 import com.dicksonmully6gmail.myrestaurants.R;
 import com.dicksonmully6gmail.myrestaurants.adapters.RestaurantPagerAdapter;
 import com.dicksonmully6gmail.myrestaurants.models.Restaurant;
@@ -31,8 +32,8 @@ public class RestaurantDetailActivity extends AppCompatActivity{
         ButterKnife.bind(this);
 
 //        pull out our ArrayList<Restaurant> Parcelable using the unwrap() method
-        mRestaurants = Parcels.unwrap(getIntent().getParcelableExtra("restaurants"));
-        int startingPosition = getIntent().getIntExtra("position", 0);
+        mRestaurants = Parcels.unwrap(getIntent().getParcelableExtra(Constants.EXTRA_KEY_RESTAURANTS));
+        int startingPosition =getIntent().getIntExtra(Constants.EXTRA_KEY_POSITION, 0);
 
 //        instructing ViewPager to use adapterViewPager adapter. And set the current item to the position of the item that was just clicked on
         adapterViewPager = new RestaurantPagerAdapter(getSupportFragmentManager(), mRestaurants);
