@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.provider.Settings;
 import android.support.v4.app.Fragment;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -30,6 +31,7 @@ import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
 import butterknife.Bind;
@@ -187,9 +189,10 @@ public class RestaurantDetailFragment extends Fragment implements View.OnClickLi
     /**
      * overriding onActivityResult triggered by startActivityForResult(),
      * in order to snag our picture
-     * @param requestCode
-     * @param resultCode
-     * @param data
+     * @param requestCode - represents the REQUEST_IMAGE_CAPTURE value in onLaunchCamera
+     * @param resultCode -represents the status of the activity
+     * @param data - is an Intent object that includes intent extras
+     *             containing the information being returned
      */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -199,6 +202,26 @@ public class RestaurantDetailFragment extends Fragment implements View.OnClickLi
             mImageLabel.setImageBitmap(imageBitmap);
             encodeBitmapAndSaveToFirebase(imageBitmap);
         }
+    }
+
+    /**
+     * encoding Bitmap image and saving to the firebase
+     * creating ByteArrayOutputStream
+     * @param bitmap
+     */
+    public void encodeBitmapAndSaveToFirebase(Bitmap bitmap) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+//        compressing the image and determining the quality (100)
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+        String imageEncoded = Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT);
+//        locate the node containing the current image URL for this specific restaurant on this
+//        specific user's saved restaurants list, and overwrite it with our new, encoded image.
+        DatabaseReference ref = FirebaseDatabase.getInstance()
+                .getReference(Constants.FIREBASE_CHILD_RESTAURANTS)
+                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .child(mRestaurant.getPushId())
+                .child("imageUrl");
+        ref.setValue(imageEncoded);
     }
 
 }
