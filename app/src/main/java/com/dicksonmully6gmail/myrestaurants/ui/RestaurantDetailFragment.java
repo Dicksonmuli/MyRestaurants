@@ -3,6 +3,7 @@ package com.dicksonmully6gmail.myrestaurants.ui;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -32,10 +33,13 @@ import com.squareup.picasso.Picasso;
 import org.parceler.Parcels;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+
+import static com.dicksonmully6gmail.myrestaurants.adapters.FirebaseRestaurantViewHolder.decodeFromFirebaseBase64;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -94,11 +98,21 @@ public class RestaurantDetailFragment extends Fragment implements View.OnClickLi
         ButterKnife.bind(this, view);
 
 
-           Picasso.with(view.getContext())
-                   .load(mRestaurant.getImageUrl())
-                   .resize(MAX_WIDTH, MAX_HEIGHT)
-                   .centerCrop()
-                   .into(mImageLabel);
+        if (!mRestaurant.getImageUrl().contains("http")) {
+            try {
+                Bitmap image = decodeFromFirebaseBase64(mRestaurant.getImageUrl());
+                mImageLabel.setImageBitmap(image);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            // This block of code should already existed, I just moved it to the 'else' statement:
+            Picasso.with(view.getContext())
+                    .load(mRestaurant.getImageUrl())
+                    .resize(MAX_WIDTH, MAX_HEIGHT)
+                    .centerCrop()
+                    .into(mImageLabel);
+        }
 
            mNameLabel.setText(mRestaurant.getName());
            mCategoriesLabel.setText(android.text.TextUtils.join(", ", mRestaurant.getCategories()));
@@ -118,6 +132,17 @@ public class RestaurantDetailFragment extends Fragment implements View.OnClickLi
 
 
         return view;
+    }
+    /**
+     *  take the encoded image's string,
+     *  and use the built-in firebase utility to decode it back into a byte array
+     * @param image
+     * @return
+     * @throws IOException
+     */
+    public static Bitmap decodeFromFirebaseBase64(String image) throws IOException {
+        byte[] decodedByteArray = android.util.Base64.decode(image, Base64.DEFAULT);
+        return BitmapFactory.decodeByteArray(decodedByteArray, 0, decodedByteArray.length);
     }
 //    implicit intent
     @Override
