@@ -9,5 +9,14 @@ import java.util.ArrayList;
  */
 
 public interface OnRestaurantSelectedListener {
-    public void onRestaurantSelected(Integer position, ArrayList<Restaurant> restaurants);
+    /**
+     *
+     * @param position
+     * @param restaurants
+     * @param source -source will be the String name of the activity the user views our reusable fragment,
+     *               from; Either "RestaurantListActivity" or "SavedRestaurantListActivity"
+     */
+    public void onRestaurantSelected(Integer position,
+                                     ArrayList<Restaurant> restaurants, String source);
+
 }
