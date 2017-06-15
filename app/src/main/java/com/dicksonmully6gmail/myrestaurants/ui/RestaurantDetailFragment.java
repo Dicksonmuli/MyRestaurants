@@ -2,8 +2,10 @@ package com.dicksonmully6gmail.myrestaurants.ui;
 
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -53,6 +55,7 @@ public class RestaurantDetailFragment extends Fragment implements View.OnClickLi
     private ArrayList<Restaurant> mRestaurants;
     private int mPosition;
     private String mSource;
+    private static final int REQUEST_IMAGE_CAPTURE = 111;
 
 
     public static RestaurantDetailFragment newInstance(ArrayList<Restaurant> restaurants,
@@ -172,6 +175,30 @@ public class RestaurantDetailFragment extends Fragment implements View.OnClickLi
                  break;
         }
         return false;
+    }
+    //launches the camera
+    public void onLaunchCamera() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+        }
+    }
+
+    /**
+     * overriding onActivityResult triggered by startActivityForResult(),
+     * in order to snag our picture
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == getActivity().RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            mImageLabel.setImageBitmap(imageBitmap);
+            encodeBitmapAndSaveToFirebase(imageBitmap);
+        }
     }
 
 }
